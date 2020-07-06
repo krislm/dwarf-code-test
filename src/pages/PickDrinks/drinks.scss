@@ -1,0 +1,16 @@
+@import '../../styles';
+
+.drink-item {
+  .ant-card-cover {
+    img {
+      width: 50%;
+      height: auto;
+    }
+  }
+  &__name {
+    margin: 0;
+  }
+  &__info {
+    float: right;
+  }
+}

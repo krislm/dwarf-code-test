@@ -1,0 +1,1 @@
+export const RECEIVE_DRINKS = 'RECEIVE_DRINKS';
