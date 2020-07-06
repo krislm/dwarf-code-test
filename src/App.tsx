@@ -4,12 +4,15 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import './App.scss';
 import {Home, Order, PickDish, PickDrinks, Receipt} from "./pages/";
+import Nav from './components/nav';
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <Router>
+        <Nav />
         <Switch>
           <Route path="/"><Home /></Route>
           <Route path="/dish"><PickDish /></Route>

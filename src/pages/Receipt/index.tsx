@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Receipt() {
+const Receipt = () => {
     return <div>Receipt</div>
 }
 

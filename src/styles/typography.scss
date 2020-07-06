@@ -1,0 +1,14 @@
+@import "colors";
+
+h1, h2, h3, h4, h5, h6, p, a {
+  &.secondary {
+    color: $secondary-color;
+  }
+  color: $primary-color;
+}
+a, .uppercase {
+  text-transform: uppercase;
+}
+.bold {
+  font-weight: bold;
+}

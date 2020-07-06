@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PickDrinks() {
+const PickDrinks = () => {
     return <div>Pick drinks</div>
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PickDish() {
+const PickDish = () => {
     return <div>Pick dish</div>
 }
 

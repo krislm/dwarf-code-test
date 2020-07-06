@@ -1,0 +1,10 @@
+button, [type='button'],
+.ant-btn {
+  border-radius: 10pt;
+  border-color: transparent;
+  font-weight: bold;
+  &.ant-btn-primary {
+    background: $primary-color;
+    color: #fff;
+  }
+}
