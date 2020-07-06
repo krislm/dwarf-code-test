@@ -24,11 +24,9 @@ const setDrinks = (drinks: Drink[]) => {
     return typedAction('drinks/GET_DRINKS', drinks);
 };
 
-// Action creator returning a thunk!
 export const loadDrinks = () => {
     return async (dispatch: Dispatch<AnyAction>) => {
         const drinks: Drink[] = await axios.get('https://api.punkapi.com/v2/beers').then(response => response.data);
-        console.log('drinks', drinks)
         dispatch(setDrinks(drinks));
     };
 };

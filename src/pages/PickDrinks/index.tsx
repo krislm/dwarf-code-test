@@ -23,7 +23,6 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [selectedDrinks, setSelectedDrinks] = useState([]);
 
     useEffect(() => {
         if (!drinks.loading && drinks.drinks.length === 0) {
@@ -32,7 +31,7 @@ const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
     }, [loadDrinks, drinks]);
 
     function addDrink(drink: Drink) {
-        setSelectedDrinks(selectedDrinks.push(drink));
+
     }
 
     return (
@@ -43,9 +42,12 @@ const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
                         <Row gutter={[{ xs: 4, sm: 8, md: 16, lg: 24 }, { xs: 4, sm: 8, md: 16, lg: 24 }]}>
                             {drinks.drinks.map(drink => (
                                 <Col xl={12} lg={12} md={12} sm={24} xs={24} flex="stretch" key={drink.id}>
-                                    <Card className="drink-item" bordered={false} hoverable>
+                                    <Card className="drink-item" bordered={false}>
                                         <p className="uppercase bold"><i>{drink.tagline}</i></p>
                                         <p className="uppercase drink-item__name">{drink.name}</p>
+                                        <Button className="uppercase" type="primary" block={true} onClick={() => alert('todo: add to cart')}>
+                                            Add drink
+                                        </Button>
                                         <img className="drink-item__info" src={info} alt="see more"/>
                                     </Card>
                                 </Col>
