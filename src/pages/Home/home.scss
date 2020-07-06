@@ -1,0 +1,19 @@
+.ant-carousel {
+  // todo arrows
+  .slick-arrow {
+    color: #000;
+  }
+  .slick-slide {
+    padding-top: 10px;
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+
+    img {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
