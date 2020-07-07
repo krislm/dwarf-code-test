@@ -93,7 +93,7 @@ const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
                 <Col xl={6} lg={6} md={6} sm={24} xs={24}>
                     <div className="container border">
                         {selectedDrinks.map((drink: Drink) => (
-                            <p className="uppercase no-margin">{drink.name}</p>
+                            <p className="uppercase no-margin" key={drink.id}>{drink.name}</p>
                         ))}
                         {selectedDrinks.length > 0 && <Divider />}
                         <p className="uppercase">Pick delivery date next!</p>

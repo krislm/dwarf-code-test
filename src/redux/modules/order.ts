@@ -15,7 +15,7 @@ export type Order = {
     dish: Dish | null;
     email: string;
     drinks: Drink[];
-    dateTime: Date;
+    dateTime: string | null;
     numberOfPeople: number;
 }
 
@@ -23,7 +23,7 @@ type OrderState = {
     dish: Dish | null;
     email: string;
     drinks: Drink[];
-    dateTime: Date;
+    dateTime: string | null;
     numberOfPeople: number;
 }
 
@@ -31,7 +31,7 @@ const initialState: OrderState = {
     dish: null,
     email: '',
     drinks: [],
-    dateTime: new Date(),
+    dateTime: null,
     numberOfPeople: 1,
 };
 const setOrder = (order: Order) => {
@@ -49,7 +49,7 @@ const removeDrink = (drink: Drink) => {
 const setEmail = (email: string) => {
     return typedAction(SET_EMAIL, { email });
 };
-const setDateTime = (dateTime: Date) => {
+const setDateTime = (dateTime: string) => {
     return typedAction(SET_DATETIME, { dateTime });
 };
 const setNumberOfPeople = (numberOfPeople: number) => {
