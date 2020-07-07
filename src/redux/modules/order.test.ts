@@ -1,9 +1,10 @@
 // @ts-ignore
 import { Dishes } from './dishes';
-import {addDish, addDrink, Order, setDateTime, setEmail, setNumberOfPeople, setOrder} from './order';
+import {addDish, addDrink, Order, removeDrink, setDateTime, setEmail, setNumberOfPeople, setOrder} from './order';
 import {
     ADD_DISH,
     ADD_DRINK,
+    REMOVE_DRINK,
     SET_DATETIME,
     SET_EMAIL,
     SET_NUMBEROFPEOPLE,
@@ -44,6 +45,11 @@ describe('order actions', () => {
     it(`${ADD_DRINK} should create an action to add a drink`, () => {
         const expectedAction = { type: ADD_DRINK, payload: { drink } };
         const result = addDrink(drink);
+        expect(result).toEqual(expectedAction);
+    });
+    it(`${REMOVE_DRINK} should create an action to remove a drink`, () => {
+        const expectedAction = { type: REMOVE_DRINK, payload: {drink} };
+        const result = removeDrink(drink);
         expect(result).toEqual(expectedAction);
     });
     it(`${SET_DATETIME} should create an action to set date & time`, () => {
