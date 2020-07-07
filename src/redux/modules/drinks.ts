@@ -1,6 +1,7 @@
 import {typedAction} from '../helpers';
 import { Dispatch, AnyAction } from 'redux';
 import axios from 'axios';
+import { GET_DRINKS } from '../../constants/ActionTypes';
 
 export type Drink = {
     id: number,
@@ -21,8 +22,9 @@ const initialState: DrinksState = {
 };
 
 const setDrinks = (drinks: Drink[]) => {
-    return typedAction('drinks/GET_DRINKS', drinks);
+    return typedAction(GET_DRINKS, drinks);
 };
+export { setDrinks };
 
 export const loadDrinks = () => {
     return async (dispatch: Dispatch<AnyAction>) => {

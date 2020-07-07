@@ -1,13 +1,20 @@
 import {typedAction} from '../helpers';
-import { Dispatch, AnyAction } from 'redux';
-import {Dish} from "./dish";
-import {Drink} from "./drinks";
+import {AnyAction, Dispatch} from 'redux';
+import {Dish} from './dish';
+import {Drink} from './drinks';
+import {
+    ADD_DISH,
+    ADD_DRINK,
+    SET_DATETIME,
+    SET_EMAIL,
+    SET_NUMBEROFPEOPLE,
+    SET_ORDER } from '../../constants/ActionTypes';
 
 export type Order = {
     dish: Dish | null;
     email: string;
     drinks: Drink[];
-    dateTime: string;
+    dateTime: Date;
     numberOfPeople: number;
 }
 
@@ -27,23 +34,25 @@ const initialState: OrderState = {
     numberOfPeople: 1,
 };
 const setOrder = (order: Order) => {
-    return typedAction('order/SET_ORDER', { order });
+    return typedAction(SET_ORDER, { order });
 };
 const addDish = (dish: Dish) => {
-    return typedAction('order/ADD_DISH', { dish });
+    return typedAction(ADD_DISH, { dish });
 };
 const addDrink = (drink: Drink) => {
-   return typedAction('order/ADD_DRINK', { drink });
+   return typedAction(ADD_DRINK, { drink });
 };
 const setEmail = (email: string) => {
-    return typedAction('order/SET_EMAIL', { email });
+    return typedAction(SET_EMAIL, { email });
 };
 const setDateTime = (dateTime: Date) => {
-    return typedAction('order/SET_DATETIME', { dateTime });
+    return typedAction(SET_DATETIME, { dateTime });
 };
 const setNumberOfPeople = (numberOfPeople: number) => {
-    return typedAction('order/SET_NUMBEROFPEOPLE', { numberOfPeople });
+    return typedAction(SET_NUMBEROFPEOPLE, { numberOfPeople });
 };
+
+export { setOrder, addDish, addDrink, setEmail, setDateTime, setNumberOfPeople };
 
 export const loadExistingOrder = () => {
     return async (dispatch: Dispatch<AnyAction>) => {
@@ -60,32 +69,32 @@ export function orderReducer(
     action: OrderAction
 ): OrderState {
     switch (action.type) {
-        case 'order/SET_ORDER':
+        case SET_ORDER:
             return {
                 ...state,
 
             };
-        case "order/ADD_DISH":
+        case ADD_DISH:
             return {
                 ...state,
                 dish: action.payload.dish
             }
-        case "order/ADD_DRINK":
+        case ADD_DRINK:
             return {
                 ...state,
                 drinks: [...state.drinks, action.payload.drink]
             };
-        case "order/SET_DATETIME":
+        case SET_DATETIME:
             return {
                 ...state,
                 dateTime: action.payload.dateTime
             };
-        case "order/SET_EMAIL":
+        case SET_EMAIL:
             return {
                 ...state,
                 email: action.payload.email
             };
-        case "order/SET_NUMBEROFPEOPLE":
+        case SET_NUMBEROFPEOPLE:
             return {
                 ...state,
                 numberOfPeople: action.payload.numberOfPeople
