@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { RootState } from '../../redux';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Button, Col, Row, DatePicker, Input } from 'antd';
+import { useIndexedDB } from 'react-indexed-db';
 import { setDateTime, setEmail, setNumberOfPeople } from '../../redux/modules/order';
-import moment, {Moment} from 'moment';
+import moment, { Moment } from 'moment';
 import range from '../../helpers/range';
-import NumberSelector from "../../components/numberSelector";
+import NumberSelector from '../../components/numberSelector';
 
 const mapStateToProps = (state: RootState) => ({ order: state.order });
 
@@ -24,8 +25,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
-const Order: React.FC<Props> = ({ order }) => {
-    const [email, setEmail] = useState('');
+const Order: React.FC<Props> = ({ setEmail, setDateTime, setNumberOfPeople, order }) => {
+    const [loading, setLoading] = useState(false);
+    const { add: addOrder } = useIndexedDB('orders');
 
     function disabledDate(current: Moment): boolean {
         // Cannot select days before today or if day is during the weekend
@@ -45,7 +47,12 @@ const Order: React.FC<Props> = ({ order }) => {
         console.log(value, dateString);
     }
     function isDisabled(): boolean {
-        return email.length === 0 || order.dateTime === null
+        return order.email.length === 0 || order.dateTime === null
+    }
+    async function proceedOrder() {
+        setLoading(true);
+        await addOrder(order);
+        setLoading(false);
     }
 
     return (
@@ -77,10 +84,10 @@ const Order: React.FC<Props> = ({ order }) => {
                                     onChange={(value: number) => setNumberOfPeople(value)}
                                 />
                                 <p className="uppercase">Enter email</p>
-                                <Input type="email" size="large" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} />
+                                <Input type="email" size="large" placeholder="email" value={order.email} onChange={e => setEmail(e.target.value)} />
                             </Col>
                             <Col xl={6} lg={6} md={6} sm={24} xs={24}>
-                                <Button disabled={isDisabled()} className="uppercase" shape="round" type="primary" block={true}>
+                                <Button disabled={isDisabled()} className="uppercase" shape="round" type="primary" block={true} onClick={proceedOrder}>
                                     Order
                                 </Button>
                             </Col>

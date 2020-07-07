@@ -72,6 +72,7 @@ export function orderReducer(
     state: OrderState = initialState,
     action: OrderAction
 ): OrderState {
+    console.log(action.type, action.payload);
     switch (action.type) {
         case SET_ORDER:
             return {

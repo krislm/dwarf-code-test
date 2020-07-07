@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
-const PickDish: React.FC<Props> = ({ loadDishes, dishes }) => {
+const PickDish: React.FC<Props> = ({ addDish, loadDishes, dishes }) => {
     const [currentDish, setCurrentDish] = useState(dishes.dishes[0]);
     const [loading, setLoading] = useState(false);
     const history = useHistory();

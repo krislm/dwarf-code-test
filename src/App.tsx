@@ -4,15 +4,21 @@ import {
 } from 'react-router-dom';
 import { Switch, Route } from "react-router";
 import './App.scss';
-import {Home, PickDish, Receipt} from "./pages/";
+import { Receipt } from "./pages/";
 import Nav from './components/nav';
+import HomeScreen from './pages/Home';
 import DrinksScreen from "./pages/PickDrinks";
 import OrderScreen from "./pages/Order";
-import {RootState} from "./redux";
+import DishScreen from './pages/PickDish';
+import { RootState } from "./redux";
 import { connect } from 'react-redux';
+import { initDB } from 'react-indexed-db';
+import { DBConfig } from './DBConfig';
 
 const mapStateToProps = (state: RootState) => ({ order: state.order });
 type Props = ReturnType<typeof mapStateToProps>
+
+initDB(DBConfig)
 
 const App: React.FC<Props> = ({ order }) => {
   return (
@@ -20,8 +26,8 @@ const App: React.FC<Props> = ({ order }) => {
       <Router>
         <Nav />
         <Switch>
-          <Route path="/" exact><Home /></Route>
-          <Route path="/dish" component={PickDish} />
+          <Route path="/" exact><HomeScreen /></Route>
+          <Route path="/dish" component={DishScreen} />
           <Route path="/drinks" component={DrinksScreen} />
           <Route path="/order" component={OrderScreen} />
           <Route path="/receipt" component={Receipt} />

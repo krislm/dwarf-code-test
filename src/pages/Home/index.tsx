@@ -1,20 +1,45 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Row, Col, Button, Carousel, Input } from 'antd';
+import { useIndexedDB } from 'react-indexed-db';
+import { setOrder } from '../../redux/modules/order';
 import burger from '../../assets/burger.svg';
 import hotdog from '../../assets/hotdog.svg';
 import pizza from '../../assets/pizza.svg';
 import './home.scss';
+import {bindActionCreators, Dispatch} from "redux";
+import {connect} from "react-redux";
 
-const Home = () => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return bindActionCreators( { setOrder }, dispatch );
+}
+
+type Props = ReturnType<typeof mapDispatchToProps>;
+
+const Home: React.FC<Props> = ({ setOrder }) => {
     const [email, setEmail] = useState('');
+    const [error, setError] = useState<string | null>(null);
     const history = useHistory();
+    const { openCursor } = useIndexedDB('orders');
 
-    function find() {
+    async function find() {
         if (email.length === 0) {
             return;
         }
-        console.log('Search by '+email);
+        // open object store cursor & iterate to find the matching entry
+        await openCursor((evt: any) => {
+            const cursor: any = evt.target.result;
+            if (cursor) {
+                if (cursor.value.email === email) {
+                    history.push('dish');
+                } else {
+                    cursor.continue();
+                }
+            } else {
+                setError('Order not found');
+                console.log('Entries all displayed');
+            }
+        });
     }
 
     function goTo(route: string) {
@@ -54,6 +79,9 @@ const Home = () => {
                         <p className="uppercase bold">find your order</p>
                         <Input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                         <Button className="uppercase" type="primary" block={true} onClick={() => find()}>find</Button>
+                        {
+                            error && <p className="uppercase error">{error}</p>
+                        }
                     </div>
                 </Col>
                 <Col xl={12} lg={12} md={12} sm={24} xs={24}>
@@ -66,4 +94,5 @@ const Home = () => {
     )
 }
 
-export default Home;
+const HomeScreen = connect(mapDispatchToProps)(Home);
+export default HomeScreen;

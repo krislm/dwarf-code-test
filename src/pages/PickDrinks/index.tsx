@@ -14,6 +14,8 @@ const mapStateToProps = (state: RootState) => ({ drinks: state.drinks });
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators(
         {
+            addDrink,
+            removeDrink,
             loadDrinks,
         },
         dispatch
@@ -23,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
-const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
+const PickDrinks: React.FC<Props> = ({ addDrink, removeDrink, loadDrinks, drinks}) => {
     const [loading, setLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalDrink, setModalDrink] = useState<Drink>();
