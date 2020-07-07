@@ -28,7 +28,7 @@ export { setDishes };
 export const loadDishes = () => {
     return async (dispatch: Dispatch<AnyAction>) => {
         const dishes: Dish[] = await axios.get('https://www.themealdb.com/api/json/v1/1/random.php')
-            .then((response: any) => response.data);
+            .then((response: any) => response.data.meals);
         dispatch(setDishes(dishes));
     }
 };

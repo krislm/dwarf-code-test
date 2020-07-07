@@ -6,7 +6,7 @@ import './nav.scss';
 const Nav = () => {
     return (
         <div className="nav">
-            <img className="logo" src={logo} alt="logo"/>
+            <Link to="/"><img className="logo" src={logo} alt="logo"/></Link>
             <Link to="/">restaurants</Link>
             <Link to="/">products</Link>
             <Link to="/">newsletter</Link>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { RootState } from '../../redux';
-import {Drink, loadDrinks} from '../../redux/modules/drinks';
+import { useHistory } from 'react-router-dom';
+import { Drink, loadDrinks } from '../../redux/modules/drinks';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Button, Col, Row, Card, Modal } from "antd";
+import {Button, Col, Row, Card, Modal, Divider} from "antd";
+import { addDrink, removeDrink } from '../../redux/modules/order';
 import info from '../../assets/info.svg';
 import './drinks.scss';
 
@@ -22,7 +24,11 @@ type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
 const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
+    const [loading, setLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalDrink, setModalDrink] = useState<Drink>();
+    const [selectedDrinks, setSelectedDrinks] = useState<Drink[]>([]);
+    const history = useHistory();
 
     useEffect(() => {
         if (!drinks.loading && drinks.drinks.length === 0) {
@@ -30,8 +36,28 @@ const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
         }
     }, [loadDrinks, drinks]);
 
-    function addDrink(drink: Drink) {
+    function toggleDrink(selectedDrink: Drink) {
+        const index: number = selectedDrinks.indexOf(selectedDrink);
+        if (index > -1) {
+            setSelectedDrinks(selectedDrinks.filter((drink: Drink) => drink !== selectedDrink));
+            removeDrink(selectedDrink);
+        } else {
+            setSelectedDrinks(selectedDrinks.concat([selectedDrink]));
+            addDrink(selectedDrink);
+        }
+    }
 
+    function proceedOrder() {
+        setLoading(true);
+        history.push('order');
+        setLoading(false);
+    }
+
+    const toggleDrinkText = (drink: Drink) => {
+        if (selectedDrinks.includes(drink)) {
+            return 'Remove drink'
+        }
+        return 'Add drink';
     }
 
     return (
@@ -40,15 +66,24 @@ const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
                 <Col xl={18} lg={18} md={18} sm={24} xs={24}>
                     <div className="container border">
                         <Row gutter={[{ xs: 4, sm: 8, md: 16, lg: 24 }, { xs: 4, sm: 8, md: 16, lg: 24 }]}>
-                            {drinks.drinks.map(drink => (
+                            {drinks.drinks.map((drink: Drink) => (
                                 <Col xl={12} lg={12} md={12} sm={24} xs={24} flex="stretch" key={drink.id}>
                                     <Card className="drink-item" bordered={false}>
-                                        <p className="uppercase bold"><i>{drink.tagline}</i></p>
+                                        <Row gutter={{ xs: 4, sm: 8, md: 16, lg: 24 }} justify="space-around" align="middle">
+                                            <Col xl={20} lg={20} md={20} sm={18} xs={18}>
+                                                <p className="uppercase bold"><i>{drink.tagline}</i></p>
+                                            </Col>
+                                            <Col xl={4} lg={4} md={4} sm={6} xs={6}>
+                                                <img className="drink-item__info" src={info} alt="see more" onClick={() => {
+                                                    setModalDrink(drink);
+                                                    setModalVisible(true);
+                                                }}/>
+                                            </Col>
+                                        </Row>
                                         <p className="uppercase drink-item__name">{drink.name}</p>
-                                        <Button className="uppercase" type="primary" block={true} onClick={() => alert('todo: add to cart')}>
-                                            Add drink
+                                        <Button className="uppercase" type="primary" block={true} onClick={() => toggleDrink(drink)}>
+                                            {toggleDrinkText(drink)}
                                         </Button>
-                                        <img className="drink-item__info" src={info} alt="see more"/>
                                     </Card>
                                 </Col>
                             ))}
@@ -57,15 +92,28 @@ const PickDrinks: React.FC<Props> = ({ loadDrinks, drinks}) => {
                 </Col>
                 <Col xl={6} lg={6} md={6} sm={24} xs={24}>
                     <div className="container border">
-                        <p className="uppercase">next pick date</p>
-                        <p className="uppercase">and amount</p>
-                        <Button className="uppercase" type="primary" block={true} onClick={() => alert('todo: go to next')}>
+                        {selectedDrinks.map((drink: Drink) => (
+                            <p className="uppercase no-margin">{drink.name}</p>
+                        ))}
+                        {selectedDrinks.length > 0 && <Divider />}
+                        <p className="uppercase">Pick delivery date next!</p>
+                        <Button disabled={selectedDrinks.length < 1} className="uppercase" loading={loading} shape="round" type="primary" block={true} onClick={() => proceedOrder()}>
                             Next
                         </Button>
                     </div>
                 </Col>
             </Row>
-            <Modal></Modal>
+            <Modal visible={modalVisible} closable={true} destroyOnClose={true} onCancel={() => setModalVisible(false)}>
+                {
+                    modalDrink &&
+                    <>
+                        <h2 className="uppercase bold">{modalDrink.name}</h2>
+                        <p className="uppercase"><i>{modalDrink.tagline}</i></p>
+                        <img src={modalDrink.image_url} alt={modalDrink.name} />
+                        <p className="uppercase">{modalDrink.description}</p>
+                    </>
+                }
+            </Modal>
         </>
     );
 }

@@ -5,6 +5,7 @@ import {Drink} from './drinks';
 import {
     ADD_DISH,
     ADD_DRINK,
+    REMOVE_DRINK,
     SET_DATETIME,
     SET_EMAIL,
     SET_NUMBEROFPEOPLE,
@@ -42,6 +43,9 @@ const addDish = (dish: Dish) => {
 const addDrink = (drink: Drink) => {
    return typedAction(ADD_DRINK, { drink });
 };
+const removeDrink = (drink: Drink) => {
+    return typedAction(REMOVE_DRINK, { drink });
+};
 const setEmail = (email: string) => {
     return typedAction(SET_EMAIL, { email });
 };
@@ -52,7 +56,7 @@ const setNumberOfPeople = (numberOfPeople: number) => {
     return typedAction(SET_NUMBEROFPEOPLE, { numberOfPeople });
 };
 
-export { setOrder, addDish, addDrink, setEmail, setDateTime, setNumberOfPeople };
+export { setOrder, addDish, addDrink, removeDrink, setEmail, setDateTime, setNumberOfPeople };
 
 export const loadExistingOrder = () => {
     return async (dispatch: Dispatch<AnyAction>) => {
