@@ -1,5 +1,7 @@
 // drinks
 export const GET_DRINKS = 'drinks/GET_DRINKS';
+// dishes
+export const GET_DISHES = 'dishes/GET_DISHES';
 // orders
 export const SET_ORDER = 'orders/SET_ORDER';
 export const ADD_DISH = 'orders/ADD_DISH';

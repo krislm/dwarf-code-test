@@ -1,6 +1,6 @@
 import {typedAction} from '../helpers';
 import {AnyAction, Dispatch} from 'redux';
-import {Dish} from './dish';
+import {Dish} from './dishes';
 import {Drink} from './drinks';
 import {
     ADD_DISH,

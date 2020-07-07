@@ -1,5 +1,5 @@
 // @ts-ignore
-import { Dish } from './dish';
+import { Dishes } from './dishes';
 import {addDish, addDrink, Order, setDateTime, setEmail, setNumberOfPeople, setOrder} from './order';
 import {
     ADD_DISH,
@@ -11,7 +11,7 @@ import {
 import { Drink } from './drinks';
 
 // test data
-const dish: Dish = {
+const dish: Dishes = {
     idMeal: 123,
     strMeal: 'Test Meal',
     strMealThumb: '',

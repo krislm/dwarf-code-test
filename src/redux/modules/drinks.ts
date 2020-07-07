@@ -1,5 +1,5 @@
 import {typedAction} from '../helpers';
-import { Dispatch, AnyAction } from 'redux';
+import {AnyAction, Dispatch} from 'redux';
 import axios from 'axios';
 import { GET_DRINKS } from '../../constants/ActionTypes';
 
@@ -28,7 +28,8 @@ export { setDrinks };
 
 export const loadDrinks = () => {
     return async (dispatch: Dispatch<AnyAction>) => {
-        const drinks: Drink[] = await axios.get('https://api.punkapi.com/v2/beers').then(response => response.data);
+        const drinks: Drink[] = await axios.get('https://api.punkapi.com/v2/beers')
+            .then((response: any) => response.data);
         dispatch(setDrinks(drinks));
     };
 };
@@ -40,7 +41,7 @@ export function drinksReducer(
     action: DrinksAction
 ): DrinksState {
     switch (action.type) {
-        case 'drinks/GET_DRINKS':
+        case GET_DRINKS:
             return {
                 ...state,
                 drinks: [...state.drinks, ...action.payload]
