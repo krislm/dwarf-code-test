@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { connect } from "react-redux";
 import { Row, Col, Button, Carousel, Input } from 'antd';
 import { useIndexedDB } from 'react-indexed-db';
+import { bindActionCreators, Dispatch } from 'redux';
 import { setOrder } from '../../redux/modules/order';
 import burger from '../../assets/burger.svg';
 import hotdog from '../../assets/hotdog.svg';
 import pizza from '../../assets/pizza.svg';
 import './home.scss';
-import {bindActionCreators, Dispatch} from "redux";
-import {connect} from "react-redux";
+import {RootState} from "../../redux";
+
+const mapStateToProps = (state: RootState) => ({ order: state.order });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators( { setOrder }, dispatch );
 }
 
-type Props = ReturnType<typeof mapDispatchToProps>;
+type Props = ReturnType<typeof mapStateToProps> &
+    ReturnType<typeof mapDispatchToProps>;
 
-const Home: React.FC<Props> = ({ setOrder }) => {
+const Home: React.FC<Props> = ({ setOrder, order }) => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState<string | null>(null);
+
     const history = useHistory();
     const { openCursor } = useIndexedDB('orders');
 
@@ -31,13 +36,14 @@ const Home: React.FC<Props> = ({ setOrder }) => {
             const cursor: any = evt.target.result;
             if (cursor) {
                 if (cursor.value.email === email) {
+                    setOrder(cursor.value);
                     history.push('dish');
                 } else {
                     cursor.continue();
                 }
             } else {
+                // iterated through all entries
                 setError('Order not found');
-                console.log('Entries all displayed');
             }
         });
     }
@@ -94,5 +100,8 @@ const Home: React.FC<Props> = ({ setOrder }) => {
     )
 }
 
-const HomeScreen = connect(mapDispatchToProps)(Home);
+const HomeScreen = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Home);
 export default HomeScreen;

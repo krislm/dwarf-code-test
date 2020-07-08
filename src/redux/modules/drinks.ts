@@ -1,6 +1,6 @@
-import {typedAction} from '../helpers';
-import {AnyAction, Dispatch} from 'redux';
+import { AnyAction, Dispatch } from 'redux';
 import axios from 'axios';
+import { typedAction } from '../helpers';
 import { GET_DRINKS } from '../../constants/ActionTypes';
 
 export type Drink = {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { RootState } from '../../redux';
-import { useHistory } from 'react-router-dom';
-import { loadDishes } from '../../redux/modules/dishes';
-import { addDish } from '../../redux/modules/order';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Button, Col, Row, Divider } from 'antd';
+import { useHistory } from 'react-router-dom';
+import { RootState } from '../../redux';
+import { loadDishes } from '../../redux/modules/dishes';
+import { addDish } from '../../redux/modules/order';
 
-const mapStateToProps = (state: RootState) => ({ dishes: state.dishes });
+const mapStateToProps = (state: RootState) => ({ dishes: state.dishes, order: state.order });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators(
@@ -22,14 +22,17 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
-const PickDish: React.FC<Props> = ({ addDish, loadDishes, dishes }) => {
+const PickDish: React.FC<Props> = ({ addDish, loadDishes, dishes, order }) => {
     const [currentDish, setCurrentDish] = useState(dishes.dishes[0]);
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
-        if (!dishes.loading && dishes.dishes.length === 0) {
+        console.log(order);
+        if (!order.dish && !dishes.loading && dishes.dishes.length === 0) {
             loadDishes();
+        } else if(order.dish) {
+            setCurrentDish(order.dish);
         } else {
             setCurrentDish(dishes.dishes[0]);
         }

@@ -33,7 +33,17 @@ const App: React.FC<Props> = ({ order }) => {
           <Route path="/receipt" component={Receipt} />
         </Switch>
       </Router>
-
+      <div>
+        <p>your order:</p>
+        <p>drinks:</p>
+        {order.drinks.map(drink =>
+            <p key={drink.id}>{drink.name}</p>
+        )}
+        <p>dish: {order.dish?.strMeal}</p>
+        <p>delivery: {order.dateTime}</p>
+        <p>number of people: {order.numberOfPeople}</p>
+        <p>email: {order.email}</p>
+      </div>
       {/*
       debug view order from store
       <div>

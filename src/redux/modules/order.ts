@@ -1,7 +1,7 @@
-import {typedAction} from '../helpers';
-import {AnyAction, Dispatch} from 'redux';
-import {Dish} from './dishes';
-import {Drink} from './drinks';
+import { AnyAction, Dispatch } from 'redux';
+import { typedAction } from '../helpers';
+import { Dish } from './dishes';
+import { Drink } from './drinks';
 import {
     ADD_DISH,
     ADD_DRINK,
@@ -35,6 +35,7 @@ const initialState: OrderState = {
     numberOfPeople: 1,
 };
 const setOrder = (order: Order) => {
+    console.log(order)
     return typedAction(SET_ORDER, { order });
 };
 const addDish = (dish: Dish) => {
@@ -58,26 +59,16 @@ const setNumberOfPeople = (numberOfPeople: number) => {
 
 export { setOrder, addDish, addDrink, removeDrink, setEmail, setDateTime, setNumberOfPeople };
 
-export const loadExistingOrder = () => {
-    return async (dispatch: Dispatch<AnyAction>) => {
-        const existingOrderString = localStorage.getItem('SUNSET_PREVIOUS-ORDER');
-        const existingOrder = existingOrderString ? JSON.parse(existingOrderString) : null;
-        dispatch(setOrder(existingOrder));
-    };
-};
-
 type OrderAction = ReturnType<typeof setOrder | typeof addDish | typeof addDrink | typeof setEmail | typeof setDateTime | typeof setNumberOfPeople>;
 
 export function orderReducer(
     state: OrderState = initialState,
     action: OrderAction
 ): OrderState {
-    console.log(action.type, action.payload);
     switch (action.type) {
         case SET_ORDER:
             return {
-                ...state,
-
+                ...action.payload.order,
             };
         case ADD_DISH:
             return {

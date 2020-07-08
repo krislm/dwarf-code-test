@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { RootState } from '../../redux';
+import moment, { Moment } from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Button, Col, Row, DatePicker, Input } from 'antd';
 import { useIndexedDB } from 'react-indexed-db';
+import { RootState } from '../../redux';
 import { setDateTime, setEmail, setNumberOfPeople } from '../../redux/modules/order';
-import moment, { Moment } from 'moment';
 import range from '../../helpers/range';
 import NumberSelector from '../../components/numberSelector';
 
@@ -58,7 +58,7 @@ const Order: React.FC<Props> = ({ setEmail, setDateTime, setNumberOfPeople, orde
     return (
         <>
             <Row gutter={[{ xs: 4, sm: 8, md: 16, lg: 24 }, { xs: 4, sm: 8, md: 16, lg: 24 }]}>
-                <Col xl={24}>
+                <Col xs={24}>
                     <div className="container border">
                         <h2 className="uppercase bold">Your order</h2>
                         <Row gutter={[{ xs: 4, sm: 8, md: 16, lg: 24 }, { xs: 4, sm: 8, md: 16, lg: 24 }]}>

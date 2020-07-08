@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { RootState } from '../../redux';
 import { useHistory } from 'react-router-dom';
-import { Drink, loadDrinks } from '../../redux/modules/drinks';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import {Button, Col, Row, Card, Modal, Divider} from "antd";
+import {Button, Col, Row, Card, Modal, Divider} from 'antd';
+import { RootState } from '../../redux';
+import { Drink, loadDrinks } from '../../redux/modules/drinks';
 import { addDrink, removeDrink } from '../../redux/modules/order';
 import info from '../../assets/info.svg';
 import './drinks.scss';
 
-const mapStateToProps = (state: RootState) => ({ drinks: state.drinks });
+const mapStateToProps = (state: RootState) => ({ drinks: state.drinks, order: state.order });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators(
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
-const PickDrinks: React.FC<Props> = ({ addDrink, removeDrink, loadDrinks, drinks}) => {
+const PickDrinks: React.FC<Props> = ({ addDrink, removeDrink, loadDrinks, drinks, order}) => {
     const [loading, setLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalDrink, setModalDrink] = useState<Drink>();
@@ -36,12 +36,17 @@ const PickDrinks: React.FC<Props> = ({ addDrink, removeDrink, loadDrinks, drinks
         if (!drinks.loading && drinks.drinks.length === 0) {
             loadDrinks();
         }
+        if (order.drinks) {
+            setSelectedDrinks(order.drinks);
+        }
     }, [loadDrinks, drinks]);
 
     function toggleDrink(selectedDrink: Drink) {
-        const index: number = selectedDrinks.indexOf(selectedDrink);
-        if (index > -1) {
-            setSelectedDrinks(selectedDrinks.filter((drink: Drink) => drink !== selectedDrink));
+        const existingDrink = selectedDrinks.find(item => item.id === selectedDrink.id);
+        console.log(existingDrink);
+        //const index: number = selectedDrinks.indexOf(selectedDrink);
+        if (existingDrink) {
+            setSelectedDrinks(selectedDrinks.filter((drink: Drink) => drink.id !== selectedDrink.id));
             removeDrink(selectedDrink);
         } else {
             setSelectedDrinks(selectedDrinks.concat([selectedDrink]));
@@ -56,7 +61,7 @@ const PickDrinks: React.FC<Props> = ({ addDrink, removeDrink, loadDrinks, drinks
     }
 
     const toggleDrinkText = (drink: Drink) => {
-        if (selectedDrinks.includes(drink)) {
+        if (selectedDrinks.find(item => item.id === drink.id)) {
             return 'Remove drink'
         }
         return 'Add drink';
