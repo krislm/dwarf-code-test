@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/dwarf-code-test/static/css/main.2b0d8a3a.chunk.css",
+    "main.js": "/dwarf-code-test/static/js/main.fae42c06.chunk.js",
+    "main.js.map": "/dwarf-code-test/static/js/main.fae42c06.chunk.js.map",
+    "runtime-main.js": "/dwarf-code-test/static/js/runtime-main.1088617d.js",
+    "runtime-main.js.map": "/dwarf-code-test/static/js/runtime-main.1088617d.js.map",
+    "static/css/2.a7bca8fd.chunk.css": "/dwarf-code-test/static/css/2.a7bca8fd.chunk.css",
+    "static/js/2.497123c6.chunk.js": "/dwarf-code-test/static/js/2.497123c6.chunk.js",
+    "static/js/2.497123c6.chunk.js.map": "/dwarf-code-test/static/js/2.497123c6.chunk.js.map",
+    "index.html": "/dwarf-code-test/index.html",
+    "precache-manifest.abcbeba4817291bc09498deae1c3dbbe.js": "/dwarf-code-test/precache-manifest.abcbeba4817291bc09498deae1c3dbbe.js",
+    "service-worker.js": "/dwarf-code-test/service-worker.js",
+    "static/css/2.a7bca8fd.chunk.css.map": "/dwarf-code-test/static/css/2.a7bca8fd.chunk.css.map",
+    "static/css/main.2b0d8a3a.chunk.css.map": "/dwarf-code-test/static/css/main.2b0d8a3a.chunk.css.map",
+    "static/js/2.497123c6.chunk.js.LICENSE.txt": "/dwarf-code-test/static/js/2.497123c6.chunk.js.LICENSE.txt",
+    "static/media/burger.svg": "/dwarf-code-test/static/media/burger.86f3ed7b.svg",
+    "static/media/hotdog.svg": "/dwarf-code-test/static/media/hotdog.ec00cfaf.svg",
+    "static/media/info.svg": "/dwarf-code-test/static/media/info.dc945fa3.svg",
+    "static/media/logo.svg": "/dwarf-code-test/static/media/logo.c8f375f7.svg",
+    "static/media/pizza.svg": "/dwarf-code-test/static/media/pizza.086db7ac.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1088617d.js",
+    "static/css/2.a7bca8fd.chunk.css",
+    "static/js/2.497123c6.chunk.js",
+    "static/css/main.2b0d8a3a.chunk.css",
+    "static/js/main.fae42c06.chunk.js"
+  ]
+}
