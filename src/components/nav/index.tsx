@@ -7,10 +7,10 @@ const Nav = () => {
     return (
         <div className="nav">
             <Link to="/"><img className="logo" src={logo} alt="logo"/></Link>
-            <Link to="/">restaurants</Link>
-            <Link to="/">products</Link>
-            <Link to="/">newsletter</Link>
-            <Link to="/">contact</Link>
+            <Link className="menu-item" to="/">restaurants</Link>
+            <Link className="menu-item" to="/">products</Link>
+            <Link className="menu-item" to="/">newsletter</Link>
+            <Link className="menu-item" to="/">contact</Link>
         </div>
     );
 }

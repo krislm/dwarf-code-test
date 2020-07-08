@@ -34,6 +34,8 @@ const App: React.FC<Props> = ({ order }) => {
         </Switch>
       </Router>
 
+      {/*
+      debug view order from store
       <div>
         <p>your order:</p>
         <p>drinks:</p>
@@ -45,6 +47,7 @@ const App: React.FC<Props> = ({ order }) => {
         <p>number of people: {order.numberOfPeople}</p>
         <p>email: {order.email}</p>
       </div>
+      */}
     </div>
   );
 }
