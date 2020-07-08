@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/dwarf-code-test/precache-manifest.abcbeba4817291bc09498deae1c3dbbe.js"
+  "/dwarf-code-test/precache-manifest.1859fe01682ba36a1493ad9d69aa9312.js"
 );
 
 self.addEventListener('message', (event) => {
