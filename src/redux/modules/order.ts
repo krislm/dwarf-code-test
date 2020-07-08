@@ -35,7 +35,6 @@ const initialState: OrderState = {
     numberOfPeople: 1,
 };
 const setOrder = (order: Order) => {
-    console.log(order)
     return typedAction(SET_ORDER, { order });
 };
 const addDish = (dish: Dish) => {

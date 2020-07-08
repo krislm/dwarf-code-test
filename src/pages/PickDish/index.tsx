@@ -28,7 +28,6 @@ const PickDish: React.FC<Props> = ({ addDish, loadDishes, dishes, order }) => {
     const history = useHistory();
 
     useEffect(() => {
-        console.log(order);
         if (!order.dish && !dishes.loading && dishes.dishes.length === 0) {
             loadDishes();
         } else if(order.dish) {
@@ -39,7 +38,6 @@ const PickDish: React.FC<Props> = ({ addDish, loadDishes, dishes, order }) => {
     }, [loadDishes, dishes]);
 
     async function randomize() {
-        //todo refresh dishes
         await loadDishes();
         setCurrentDish(dishes.dishes[0]);
     }

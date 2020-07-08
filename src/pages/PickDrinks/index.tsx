@@ -43,8 +43,6 @@ const PickDrinks: React.FC<Props> = ({ addDrink, removeDrink, loadDrinks, drinks
 
     function toggleDrink(selectedDrink: Drink) {
         const existingDrink = selectedDrinks.find(item => item.id === selectedDrink.id);
-        console.log(existingDrink);
-        //const index: number = selectedDrinks.indexOf(selectedDrink);
         if (existingDrink) {
             setSelectedDrinks(selectedDrinks.filter((drink: Drink) => drink.id !== selectedDrink.id));
             removeDrink(selectedDrink);

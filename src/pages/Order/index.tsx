@@ -40,11 +40,7 @@ const Order: React.FC<Props> = ({ setEmail, setDateTime, setNumberOfPeople, orde
         };
     }
     function onOk(value: any) {
-        console.log('onOk: ', value);
         setDateTime(value.toISOString());
-    }
-    function onChange(value: any, dateString: string) {
-        console.log(value, dateString);
     }
     function isDisabled(): boolean {
         return order.email.length === 0 || order.dateTime === null
@@ -69,7 +65,6 @@ const Order: React.FC<Props> = ({ setEmail, setDateTime, setNumberOfPeople, orde
                                         format="YYYY-MM-DD HH:mm"
                                         disabledDate={disabledDate}
                                         disabledTime={disabledDateTime}
-                                        onChange={onChange}
                                         onOk={onOk}
                                         showTime={{ defaultValue: moment('00:00', 'HH:mm') }}
                                     />
