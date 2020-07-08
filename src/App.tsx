@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  BrowserRouter as Router
+  BrowserRouter as Router,
+    HashRouter
 } from 'react-router-dom';
 import { Switch, Route } from "react-router";
 import './App.scss';
@@ -23,7 +24,7 @@ initDB(DBConfig)
 const App: React.FC<Props> = ({ order }) => {
   return (
     <div className="App">
-      <Router>
+      <HashRouter basename="/">
         <Nav />
         <Switch>
           <Route path="/" exact><HomeScreen /></Route>
@@ -32,18 +33,7 @@ const App: React.FC<Props> = ({ order }) => {
           <Route path="/order" component={OrderScreen} />
           <Route path="/receipt" component={Receipt} />
         </Switch>
-      </Router>
-      <div>
-        <p>your order:</p>
-        <p>drinks:</p>
-        {order.drinks.map(drink =>
-            <p key={drink.id}>{drink.name}</p>
-        )}
-        <p>dish: {order.dish?.strMeal}</p>
-        <p>delivery: {order.dateTime}</p>
-        <p>number of people: {order.numberOfPeople}</p>
-        <p>email: {order.email}</p>
-      </div>
+      </HashRouter>
       {/*
       debug view order from store
       <div>
