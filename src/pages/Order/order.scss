@@ -3,3 +3,12 @@
   border: 1px solid $secondary-color;
   border-radius: 2px;
 }
+
+.loading {
+  position: fixed;
+  top: 4rem;
+  left: auto;
+  right: auto;
+  width: 110px;
+  height: 70px;
+}

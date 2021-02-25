@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
+import { useHistory } from 'react-router-dom';
 import { Button, Col, Row, DatePicker, Input } from 'antd';
 import { useIndexedDB } from 'react-indexed-db';
 import { RootState } from '../../redux';
@@ -26,6 +27,7 @@ type Props = ReturnType<typeof mapStateToProps> &
     ReturnType<typeof mapDispatchToProps>;
 
 const Order: React.FC<Props> = ({ setEmail, setDateTime, setNumberOfPeople, order }) => {
+    const history = useHistory();
     const [loading, setLoading] = useState(false);
     const { add: addOrder } = useIndexedDB('orders');
 
@@ -45,14 +47,21 @@ const Order: React.FC<Props> = ({ setEmail, setDateTime, setNumberOfPeople, orde
     function isDisabled(): boolean {
         return order.email.length === 0 || order.dateTime === null
     }
-    async function proceedOrder() {
+    function proceedOrder() {
         setLoading(true);
-        await addOrder(order);
-        setLoading(false);
+        addOrder(order)
+            .then(() => {
+                setLoading(false);
+                history.push('receipt');
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
     return (
         <>
+            {loading && <div className="loading"><h1>loading...</h1></div>}
             <Row gutter={[{ xs: 4, sm: 8, md: 16, lg: 24 }, { xs: 4, sm: 8, md: 16, lg: 24 }]}>
                 <Col xs={24}>
                     <div className="container border">

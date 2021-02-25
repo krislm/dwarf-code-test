@@ -46,8 +46,7 @@ const App: React.FC<Props> = ({ order }) => {
         <p>delivery: {order.dateTime}</p>
         <p>number of people: {order.numberOfPeople}</p>
         <p>email: {order.email}</p>
-      </div>
-      */}
+      </div>*/}
     </div>
   );
 }
