@@ -39,7 +39,7 @@ const PickDish: React.FC<Props> = ({ addDish, loadDishes, dishes, order }) => {
 
     async function randomize() {
         await loadDishes();
-        setCurrentDish(dishes.dishes[0]);
+        setCurrentDish(dishes.dishes[dishes.dishes.length - 1]);
     }
     function proceedOrder() {
         setLoading(true);
